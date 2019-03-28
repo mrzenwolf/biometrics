@@ -63,7 +63,7 @@ def reverse(ls):
         cpy.reverse()
         return cpy
     except TypeError:
-        cpy = [i for i in ls]
+        cpy = list(ls)
         cpy.reverse()
         return cpy
 
