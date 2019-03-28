@@ -19,11 +19,9 @@ def apply_structure(pixels, structure, result):
             usage = True
             return 0.0
         return old
-    
+
     utils.apply_kernel_with_f(pixels, structure, choose)
     
-    if usage is False:
-        print(usage)
     return usage
 
 def apply_all_structures(pixels, structures):
