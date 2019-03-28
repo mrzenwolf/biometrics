@@ -1,17 +1,18 @@
-# Metody biometryczne
+# Biometric methods
 # Przemyslaw Pastuszka
 
 from PIL import Image, ImageDraw
 import math
 import sobel
 import copy
+from time import sleep
 
 def apply_kernel_at(get_value, kernel, i, j):
-    kernel_size = len(kernel)
+    kernel_size = len(list(kernel))
     result = 0
     for k in range(0, kernel_size):
         for l in range(0, kernel_size):
-            pixel = get_value(i + k - kernel_size / 2, j + l - kernel_size / 2)
+            pixel = get_value(i + k - kernel_size // 2, j + l - kernel_size // 2)
             result += pixel * kernel[k][l]
     return result
 
@@ -41,7 +42,7 @@ def calculate_angles(im, W, f, g):
                     nominator += f(Gx, Gy)
                     denominator += g(Gx, Gy)
             angle = (math.pi + math.atan2(nominator, denominator)) / 2
-            result[(i - 1) / W].append(angle)
+            result[(i - 1) // W].append(angle)
 
     return result
 
@@ -49,7 +50,7 @@ def flatten(ls):
     return reduce(lambda x, y: x + y, ls, [])
 
 def transpose(ls):
-    return map(list, zip(*ls))
+    return list(map(list, zip(*ls))) #
 
 def gauss(x, y):
     ssigma = 1.0
@@ -59,7 +60,7 @@ def kernel_from_function(size, f):
     kernel = [[] for i in range(0, size)]
     for i in range(0, size):
         for j in range(0, size):
-            kernel[i].append(f(i - size / 2, j - size / 2))
+            kernel[i].append(f(i - size // 2, j - size // 2))
     return kernel
 
 def gauss_kernel(size):
@@ -70,8 +71,8 @@ def apply_kernel(pixels, kernel):
 
 def apply_kernel_with_f(pixels, kernel, f):
     size = len(kernel)
-    for i in range(size / 2, len(pixels) - size / 2):
-        for j in range(size / 2, len(pixels[i]) - size / 2):
+    for i in range(size // 2, len(pixels) - size // 2):
+        for j in range(size // 2, len(pixels[i]) - size // 2):
             pixels[i][j] = f(pixels[i][j], apply_kernel_at(lambda x, y: pixels[x][y], kernel, i, j))
 
 def smooth_angles(angles):
@@ -108,14 +109,14 @@ def load_pixels(im, pixels):
 
     for i in range(0, x):
         for j in range(0, y):
-            im_load[i, j] = pixels[i][j]
+            im_load[i, j] = (int(pixels[i][j]),)
 
 def get_line_ends(i, j, W, tang):
     if -1 <= tang and tang <= 1:
-        begin = (i, (-W/2) * tang + j + W/2)
-        end = (i + W, (W/2) * tang + j + W/2)
+        begin = (i, (-W/2) * tang + j + W//2)
+        end = (i + W, (W/2) * tang + j + W//2)
     else:
-        begin = (i + W/2 + W/(2 * tang), j + W/2)
+        begin = (i + W/2 + W//(2 * tang), j + W/2)
         end = (i + W/2 - W/(2 * tang), j - W/2)
     return (begin, end)
 

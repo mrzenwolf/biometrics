@@ -1,6 +1,5 @@
-# Metody biometryczne
+# Biometric methods
 # Przemyslaw Pastuszka
-
 from PIL import Image, ImageDraw
 import utils
 import argparse
@@ -20,22 +19,23 @@ def apply_structure(pixels, structure, result):
             usage = True
             return 0.0
         return old
-
+    
     utils.apply_kernel_with_f(pixels, structure, choose)
-
+    
+    if usage is False:
+        print(usage)
     return usage
 
 def apply_all_structures(pixels, structures):
     usage = False
     for structure in structures:
         usage |= apply_structure(pixels, structure, utils.flatten(structure).count(1))
-
     return usage
 
 def make_thin(im):
     loaded = utils.load_image(im)
     utils.apply_to_each_pixel(loaded, lambda x: 0.0 if x > 10 else 1.0)
-    print "loading phase done"
+    print ("loading phase done")
 
     t1 = [[1, 1, 1], [0, 1, 0], [0.1, 0.1, 0.1]]
     t2 = utils.transpose(t1)
@@ -51,18 +51,23 @@ def make_thin(im):
     usage = True
     while(usage):
         usage = apply_all_structures(loaded, thinners)
-        print "single thining phase done"
+        print ("single thining phase done")
 
-    print "thining done"
+    print ("thining done")
 
     utils.apply_to_each_pixel(loaded, lambda x: 255.0 * (1 - x))
     utils.load_pixels(im, loaded)
     im.show()
 
 def reverse(ls):
-    cpy = ls[:]
-    cpy.reverse()
-    return cpy
+    try:
+        cpy = ls[:]
+        cpy.reverse()
+        return cpy
+    except TypeError:
+        cpy = [i for i in ls]
+        cpy.reverse()
+        return cpy
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Image thining")

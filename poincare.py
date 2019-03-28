@@ -1,6 +1,5 @@
-# Metody biometryczne
+# Biometric methods
 # Przemyslaw Pastuszka
-
 from PIL import Image, ImageDraw
 import utils
 import argparse

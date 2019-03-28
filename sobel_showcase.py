@@ -1,4 +1,4 @@
-# Metody biometryczne
+# Biometric Methods
 # Przemyslaw Pastuszka
 
 import sobel
