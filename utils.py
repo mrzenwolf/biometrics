@@ -5,7 +5,6 @@ from PIL import Image, ImageDraw
 import math
 import sobel
 import copy
-from time import sleep
 from functools import reduce
 
 def apply_kernel_at(get_value, kernel, i, j):
