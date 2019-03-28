@@ -1,6 +1,11 @@
 # Fingerprint recognition algorithms
 
 Active development year: 2012
+Update : 2019
+
+## Update Notes
+### March 2019
+* Change prerequisites from python 2.7 to python 3.7
 
 ## Summary
 Some implementations of fingerprint recognition algorithms developed for Biometric Methods course at University of Wrocław, Poland.
