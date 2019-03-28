@@ -2,8 +2,6 @@
 
 Active development year: 2012
 
-Update : 2019
-
 ## Update Notes
 ### March 2019
 * Change prerequisites from python 2.7 to python 3.7
@@ -14,7 +12,7 @@ Some implementations of fingerprint recognition algorithms developed for Biometr
 ## Usage
 
 ### Prerequisites
-* python 2.7
+* python 3.7
 * python imaging library (PIL)
 
 ### How to use it
