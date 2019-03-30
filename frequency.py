@@ -25,7 +25,6 @@ def points_on_line(line, W):
     dist = lambda x_y:(x - W // 2) ** 2 + (y - W // 2) ** 2
     cmp_ = cmp_to_key(lambda x, y: dist(x)<dist(y))
     return sorted(points, key=cmp_)[:W]
-    # return sorted(points, cmp=lambda x, y: dist(x)<dist(y))[:W]
 
 def vec_and_step(tang, W):
     (begin, end) = utils.get_line_ends(0, 0, W, tang)
