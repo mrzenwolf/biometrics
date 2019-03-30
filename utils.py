@@ -87,7 +87,7 @@ def smooth_angles(angles):
 
     for i in range(0, len(cos_angles)):
         for j in range(0, len(cos_angles[i])):
-            cos_angles[i][j] = (math.atan2(sin_angles[i][j], cos_angles[i][j])) / 2 #fx
+            cos_angles[i][j] = (math.atan2(sin_angles[i][j], cos_angles[i][j])) / 2
 
     return cos_angles
 
