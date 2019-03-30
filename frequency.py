@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw
 import utils
 import argparse
 import math
-
+from functools import cmp_to_key
 
 def points_on_line(line, W):
     im = Image.new("L", (W, 3 * W), 100)
@@ -22,9 +22,10 @@ def points_on_line(line, W):
     del draw
     del im
 
-    dist = lambda (x, y): (x - W / 2) ** 2 + (y - W / 2) ** 2
-
-    return sorted(points, cmp = lambda x, y: dist(x) < dist(y))[:W]
+    dist = lambda x_y:(x - W // 2) ** 2 + (y - W // 2) ** 2
+    cmp_ = cmp_to_key(lambda x, y: dist(x)<dist(y))
+    return sorted(points, key=cmp_)[:W]
+    # return sorted(points, cmp=lambda x, y: dist(x)<dist(y))[:W]
 
 def vec_and_step(tang, W):
     (begin, end) = utils.get_line_ends(0, 0, W, tang)
@@ -75,15 +76,15 @@ def block_frequency(i, j, W, angle, im_load):
 def freq(im, W, angles):
     (x, y) = im.size
     im_load = im.load()
-    freqs = [[0] for i in range(0, x / W)]
+    freqs = [[0] for i in range(0, x // W)]
 
-    for i in range(1, x / W - 1):
-        for j in range(1, y / W - 1):
+    for i in range(1, x // W - 1):
+        for j in range(1, y // W - 1):
             freq = block_frequency(i, j, W, angles[i][j], im_load)
             freqs[i].append(freq)
         freqs[i].append(0)
 
-    freqs[0] = freqs[-1] = [0 for i in range(0, y / W)]
+    freqs[0] = freqs[-1] = [0 for i in range(0, y // W)]
 
     return freqs
 

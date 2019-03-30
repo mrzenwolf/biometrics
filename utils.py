@@ -50,7 +50,7 @@ def flatten(ls):
     return reduce(lambda x, y: x + y, ls, [])
 
 def transpose(ls):
-    return list(map(list, zip(*ls))) #
+    return list(map(list, zip(*ls)))
 
 def gauss(x, y):
     ssigma = 1.0
@@ -60,7 +60,7 @@ def kernel_from_function(size, f):
     kernel = [[] for i in range(0, size)]
     for i in range(0, size):
         for j in range(0, size):
-            kernel[i].append(f(i - size // 2, j - size // 2))
+            kernel[i].append(f(i - size / 2, j - size / 2))
     return kernel
 
 def gauss_kernel(size):
@@ -87,7 +87,7 @@ def smooth_angles(angles):
 
     for i in range(0, len(cos_angles)):
         for j in range(0, len(cos_angles[i])):
-            cos_angles[i][j] = (math.atan2(sin_angles[i][j], cos_angles[i][j])) / 2
+            cos_angles[i][j] = (math.atan2(sin_angles[i][j], cos_angles[i][j])) / 2 #fx
 
     return cos_angles
 
